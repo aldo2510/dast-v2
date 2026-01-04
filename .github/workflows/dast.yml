@@ -5,20 +5,22 @@ on: [push, pull_request]
 permissions:
   issues: write
   contents: read
-  
+
 jobs:
   zap:
     runs-on: ubuntu-latest
-    steps:      
+    steps:
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.15.0
         with:
           token: ${{ github.token }}
           target: "https://juice-shop.herokuapp.com"
-          cmd_options: "-r zap_report.html"
+          fail_action: false
+          cmd_options: "-r report_html.html"
 
       - name: Subir reporte
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: zap-report
-          path: zap_report.html
+          path: report_html.html
