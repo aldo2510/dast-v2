@@ -10,6 +10,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.15.0
         with:
           target: "https://juice-shop.herokuapp.com"
+          issue_title: ""
           fail_action: false
           cmd_options: "-r zap_report.html"
 
