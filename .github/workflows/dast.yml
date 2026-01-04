@@ -2,19 +2,19 @@ name: DAST - ZAP contra Juice Shop (demo pública)
 
 on: [push, pull_request]
 
+permissions:
+  issues: write
+  contents: read
+  
 jobs:
   zap:
-    permissions:
-      issues: write
-      contents: read
     runs-on: ubuntu-latest
-    steps:
+    steps:      
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.15.0
         with:
+          token: ${{ github.token }}
           target: "https://juice-shop.herokuapp.com"
-          issue_title: ""
-          fail_action: false
           cmd_options: "-r zap_report.html"
 
       - name: Subir reporte
