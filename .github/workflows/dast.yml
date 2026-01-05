@@ -10,13 +10,16 @@ jobs:
   zap:
     runs-on: ubuntu-latest
     steps:
-      - name: ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.15.0
+      - name: ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.13.0
         with:
           token: ${{ github.token }}
           target: "https://juice-shop.herokuapp.com"
           fail_action: false
           cmd_options: "-r report_html.html"
+          
+#      - name: ZAP Baseline Scan
+#        uses: zaproxy/action-baseline@v0.15.0
 
       - name: Subir reporte
         if: always()
