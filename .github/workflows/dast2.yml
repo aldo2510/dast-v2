@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  issues: write # <-- Permiso necesario para que ZAP pueda interactuar con los issues
+  issues: write
 
 jobs:
   owasp-zap-scan:
@@ -15,11 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
       - name: Checkout del repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
 
       - name: Ejecutar OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.14.0
+        uses: zaproxy/action-baseline@v0.15.0
         with:
           target: 'https://pentest-ground.com:4280'
           rules_file_name: '.zap/rules.tsv'
@@ -27,7 +28,7 @@ jobs:
         continue-on-error: true
 
       - name: Subir reporte de ZAP como artefacto
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: zap-scan-report
           path: |
