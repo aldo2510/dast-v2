@@ -1,0 +1,5 @@
+# ID  Acción    Comentario/Descripción
+10038	IGNORE    # X-Content-Type-Options Header Missing
+10021	IGNORE    # X-Frame-Options Header Scanner
+10015	IGNORE    # Re-examine Cache-Control Directives
+10027	IGNORE    # Information Disclosure - Suspicious Comments
