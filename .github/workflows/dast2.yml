@@ -1,4 +1,4 @@
-name: DAST con OWASP ZAP y Docker Local
+name: DAST con OWASP ZAP en URL Pública
 
 on:
   workflow_dispatch:
@@ -7,26 +7,17 @@ on:
 
 jobs:
   owasp-zap-scan:
-    name: Escaneo DAST local
+    name: Escaneo DAST Externo
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Levantar OWASP Juice Shop localmente con Docker
-        run: |
-          docker run -d -p 3000:3000 bkimminich/juice-shop
-          # Esperar unos segundos a que la aplicación inicie correctamente
-          echo "Esperando a que la aplicación esté lista..."
-          until curl -s http://localhost:3000 > /dev/null; do
-            sleep 5
-          done
-
       - name: Ejecutar OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.14.0
         with:
-          target: 'http://localhost:3000/'
+          target: 'https://pentest-ground.com:4280' # Aplicación web vulnerable pública (DVWA adaptada)
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
         continue-on-error: true
